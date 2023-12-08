@@ -17,7 +17,8 @@ source/PES_Project.o source/PES_Project.d: ../source/PES_Project.c \
  /home/parth/Work/anotherworkspace/PES_Project/board/pin_mux.h \
  /home/parth/Work/anotherworkspace/PES_Project/board/clock_config.h \
  /home/parth/Work/anotherworkspace/PES_Project/CMSIS/MKL25Z4.h \
- /home/parth/Work/anotherworkspace/PES_Project/utilities/fsl_debug_console.h
+ /home/parth/Work/anotherworkspace/PES_Project/utilities/fsl_debug_console.h \
+ ../source/oled.h ../source/i2c.h ../source/fonts.h
 /home/parth/Work/anotherworkspace/PES_Project/board/board.h:
 /home/parth/Work/anotherworkspace/PES_Project/board/clock_config.h:
 /home/parth/Work/anotherworkspace/PES_Project/drivers/fsl_common.h:
@@ -37,3 +38,6 @@ source/PES_Project.o source/PES_Project.d: ../source/PES_Project.c \
 /home/parth/Work/anotherworkspace/PES_Project/board/clock_config.h:
 /home/parth/Work/anotherworkspace/PES_Project/CMSIS/MKL25Z4.h:
 /home/parth/Work/anotherworkspace/PES_Project/utilities/fsl_debug_console.h:
+../source/oled.h:
+../source/i2c.h:
+../source/fonts.h:

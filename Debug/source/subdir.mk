@@ -5,17 +5,26 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/PES_Project.c \
+../source/fonts.c \
+../source/i2c.c \
 ../source/mtb.c \
+../source/oled.c \
 ../source/semihost_hardfault.c 
 
 C_DEPS += \
 ./source/PES_Project.d \
+./source/fonts.d \
+./source/i2c.d \
 ./source/mtb.d \
+./source/oled.d \
 ./source/semihost_hardfault.d 
 
 OBJS += \
 ./source/PES_Project.o \
+./source/fonts.o \
+./source/i2c.o \
 ./source/mtb.o \
+./source/oled.o \
 ./source/semihost_hardfault.o 
 
 
@@ -31,7 +40,7 @@ source/%.o: ../source/%.c source/subdir.mk
 clean: clean-source
 
 clean-source:
-	-$(RM) ./source/PES_Project.d ./source/PES_Project.o ./source/mtb.d ./source/mtb.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o
+	-$(RM) ./source/PES_Project.d ./source/PES_Project.o ./source/fonts.d ./source/fonts.o ./source/i2c.d ./source/i2c.o ./source/mtb.d ./source/mtb.o ./source/oled.d ./source/oled.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o
 
 .PHONY: clean-source
 

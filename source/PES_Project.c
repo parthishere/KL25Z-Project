@@ -16,6 +16,8 @@
 #include "clock_config.h"
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
+#include "oled.h"
+#include "fonts.h"
 
 
 int main(void) {
@@ -30,6 +32,10 @@ int main(void) {
 
     PRINTF("Hello World\r\n");
 
+    init_SSD1306();
+
+    gotoXY_SSD1306 (0,0);
+	puts_SSD1306 ("HELLO", &Font_11x18, 1);
 
     while(1) {
 
