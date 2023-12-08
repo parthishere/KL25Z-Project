@@ -181,10 +181,12 @@ float MPU_tempC(void) {
 	int16_t temp;
 	temp = (int8_t)MPU_READ(MPU_TEMP_REG);
 	float tempC;
-	tempC = temp / 340 + 36.53;
+	tempC = (temp / 340) + 36.53;
 	delay_mpu(1000);
-	return tempC;
+	return temp;
 }
+
+
 
 /**
  * Get the Accelerometer range value

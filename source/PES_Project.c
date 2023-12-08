@@ -45,7 +45,7 @@ int main(void) {
     MPU_calibrate();
 
     while(1) {
-        PRINTF("X: %d Y : %d Z: %f Gyro X %d Y %f Z %d Tempreture %f  \n\r", MPU_accelXraw(), MPU_accelYraw(), MPU_accelZraw(), MPU_gyroX(), MPU_gyroY(), MPU_gyroZ(), MPU_tempC());
+        PRINTF("X: %d Y : %d Z: %d Gyro X %d Y %d Z %d Tempreture %d  \n\r", MPU_accelXraw(), MPU_accelYraw(), MPU_accelZraw(), MPU_gyroXraw(), MPU_gyroYraw(), MPU_gyroZraw(), MPU_tempC());
     }
     return 0 ;
 }
