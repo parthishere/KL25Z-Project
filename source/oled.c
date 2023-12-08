@@ -46,8 +46,6 @@ uint8_t init_SSD1306(void) {
 	/* Init I2C */
 	initI2C();
 	
-	/* Check if LCD connected to I2C */
-	
 	/* A little delay */
 	uint32_t p = 2500;
 	while(p>0)
@@ -145,9 +143,9 @@ char putc_SSD1306(char ch, FontDef_t* Font, SSD1306_COLOR_t color) {
 		b = Font->data[(ch - 32) * Font->FontHeight + i];
 		for (j = 0; j < Font->FontWidth; j++) {
 			if ((b << j) & 0x8000) {
-				SSD1306_DrawPixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR_t) color);
+				drawPixel_SSD1306(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR_t) color);
 			} else {
-				SSD1306_DrawPixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR_t)!color);
+				drawPixel_SSD1306(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR_t)!color);
 			}
 		}
 	}
@@ -177,7 +175,7 @@ char puts_SSD1306(char* str, FontDef_t* Font, SSD1306_COLOR_t color) {
 }
 
 
-void SSD1306_DrawPixel(uint16_t x, uint16_t y, SSD1306_COLOR_t color) {
+void drawPixel_SSD1306(uint16_t x, uint16_t y, SSD1306_COLOR_t color) {
 	if (
 		x >= SSD1306_WIDTH ||
 		y >= SSD1306_HEIGHT

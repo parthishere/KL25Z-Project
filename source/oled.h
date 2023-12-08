@@ -46,6 +46,6 @@ char putc_SSD1306(char ch, FontDef_t* Font, SSD1306_COLOR_t color);
  */
 char puts_SSD1306(char* str, FontDef_t* Font, SSD1306_COLOR_t color);
 
-void SSD1306_DrawPixel(uint16_t x, uint16_t y, SSD1306_COLOR_t color);
+void drawPixel_SSD1306(uint16_t x, uint16_t y, SSD1306_COLOR_t color);
 
 #endif // !__OLED_H__

@@ -1,7 +1,7 @@
 ../source/oled.c:44:9:init_SSD1306	16	static
-../source/oled.c:106:6:fill_SSD1306	16	static
-../source/oled.c:111:6:updateScreen_SSD1306	16	static
-../source/oled.c:125:6:gotoXY_SSD1306	16	static
-../source/oled.c:131:6:putc_SSD1306	32	static
-../source/oled.c:162:6:puts_SSD1306	24	static
-../source/oled.c:180:6:SSD1306_DrawPixel	24	static
+../source/oled.c:104:6:fill_SSD1306	16	static
+../source/oled.c:109:6:updateScreen_SSD1306	16	static
+../source/oled.c:123:6:gotoXY_SSD1306	16	static
+../source/oled.c:129:6:putc_SSD1306	32	static
+../source/oled.c:160:6:puts_SSD1306	24	static
+../source/oled.c:178:6:drawPixel_SSD1306	24	static

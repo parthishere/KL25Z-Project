@@ -18,6 +18,7 @@
 #include "fsl_debug_console.h"
 #include "oled.h"
 #include "fonts.h"
+#include "mpu6050.h"
 
 
 int main(void) {
@@ -34,11 +35,17 @@ int main(void) {
 
     init_SSD1306();
 
-    gotoXY_SSD1306 (0,0);
-	puts_SSD1306 ("HELLO", &Font_11x18, 1);
+//    gotoXY_SSD1306 (0,0);
+//	puts_SSD1306 ("HELLO", &Font_11x18, 1);
+
+    init_MPU();
+    MPU_gyroConfig(MPU_Gyro_Range_250);
+    MPU_accelConfig(MPU_Accel_Range_8G);
+
+    MPU_calibrate();
 
     while(1) {
-
+        PRINTF("X: %d Y : %d Z: %f Gyro X %d Y %f Z %d Tempreture %f  \n\r", MPU_accelXraw(), MPU_accelYraw(), MPU_accelZraw(), MPU_gyroX(), MPU_gyroY(), MPU_gyroZ(), MPU_tempC());
     }
     return 0 ;
 }

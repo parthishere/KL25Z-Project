@@ -5,27 +5,36 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../source/PES_Project.c \
+../source/distance.c \
 ../source/fonts.c \
 ../source/i2c.c \
+../source/mpu6050.c \
 ../source/mtb.c \
 ../source/oled.c \
-../source/semihost_hardfault.c 
+../source/semihost_hardfault.c \
+../source/timer.c 
 
 C_DEPS += \
 ./source/PES_Project.d \
+./source/distance.d \
 ./source/fonts.d \
 ./source/i2c.d \
+./source/mpu6050.d \
 ./source/mtb.d \
 ./source/oled.d \
-./source/semihost_hardfault.d 
+./source/semihost_hardfault.d \
+./source/timer.d 
 
 OBJS += \
 ./source/PES_Project.o \
+./source/distance.o \
 ./source/fonts.o \
 ./source/i2c.o \
+./source/mpu6050.o \
 ./source/mtb.o \
 ./source/oled.o \
-./source/semihost_hardfault.o 
+./source/semihost_hardfault.o \
+./source/timer.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -40,7 +49,7 @@ source/%.o: ../source/%.c source/subdir.mk
 clean: clean-source
 
 clean-source:
-	-$(RM) ./source/PES_Project.d ./source/PES_Project.o ./source/fonts.d ./source/fonts.o ./source/i2c.d ./source/i2c.o ./source/mtb.d ./source/mtb.o ./source/oled.d ./source/oled.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o
+	-$(RM) ./source/PES_Project.d ./source/PES_Project.o ./source/distance.d ./source/distance.o ./source/fonts.d ./source/fonts.o ./source/i2c.d ./source/i2c.o ./source/mpu6050.d ./source/mpu6050.o ./source/mtb.d ./source/mtb.o ./source/oled.d ./source/oled.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/timer.d ./source/timer.o
 
 .PHONY: clean-source
 

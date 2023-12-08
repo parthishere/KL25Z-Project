@@ -3,6 +3,9 @@
         "*.excalidraw": "json",
         "*.excalidrawlib": "json",
         "fsl_debug_console.h": "c",
-        "clock_config.h": "c"
+        "clock_config.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }
