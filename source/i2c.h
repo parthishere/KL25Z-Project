@@ -18,6 +18,8 @@ void writeMultRegisterI2C(uint8_t SlaveAddress,uint8_t RegisterAddress, uint8_t 
 
 uint8_t readI2C();
 uint8_t readRegisterI2C(uint8_t SlaveAddress,uint8_t RegisterAddress);
+void i2c_read_setup(uint8_t SlaveAddress, uint8_t address);
+uint8_t i2c_repeated_read(uint8_t isLastRead);
 
 void delay(uint32_t t);
 

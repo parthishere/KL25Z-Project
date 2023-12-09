@@ -84,6 +84,34 @@ uint8_t MPU_calibrate(void) {
 	return 1;
 }
 
+void read_full_xyz(int16_t * x,int16_t * y, int16_t * z)
+{
+	int i;
+		
+	int16_t temp[3];
+	int8_t data[6];
+	
+	startI2C();
+	i2c_read_setup(MPU_ADDR_DEFAULT , 0x3B); // Start with register 0x3B (ACCEL_XOUT_H)
+	
+	// Read five bytes in repeated mode
+	for( i=0; i<5; i++)	{
+		data[i] = (int8_t)i2c_repeated_read(0);
+	}
+	// Read last byte ending repeated mode
+	data[i] = (int8_t)i2c_repeated_read(1);
+	
+	for ( i=0; i<3; i++ ) {
+		temp[i] = (int16_t) ((data[2*i]<<8) | data[2*i+1]);
+	}
+
+	// Align for 14 bits
+	*x = temp[0]/4;
+	*y = temp[1]/4;
+	*z = temp[2]/4;
+}
+
+
 /**
  * Read Raw values of the Accelerometer on the X-axis
  */

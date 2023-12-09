@@ -43,9 +43,10 @@ int main(void) {
     MPU_accelConfig(MPU_Accel_Range_8G);
 
     MPU_calibrate();
-
+    int16_t x, y, z;
     while(1) {
-        PRINTF("X: %d Y : %d Z: %d Gyro X %d Y %d Z %d Tempreture %d  \n\r", MPU_accelXraw(), MPU_accelYraw(), MPU_accelZraw(), MPU_gyroXraw(), MPU_gyroYraw(), MPU_gyroZraw(), MPU_tempC());
+        read_full_xyz(&x, &y, &z);
+        PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d Tempreture %04d  \n\r", x, y, z, MPU_gyroXraw(), MPU_gyroYraw(), MPU_gyroZraw(), MPU_tempC());
     }
     return 0 ;
 }
