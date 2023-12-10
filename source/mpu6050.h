@@ -6,48 +6,48 @@
 
 typedef enum
 {
-    MPU_Gyro_Range_250 = 0x00,
-    MPU_Gyro_Range_500 = (1 << 3),
-    MPU_Gyro_Range_1000 = (1 << 4),
-    MPU_Gyro_Range_2000 = ((1 << 4) | (1 << 3))
-} MPU_GyroRange;
+    Gyro_Range_250 = 0b00000,
+    Gyro_Range_500 = 0b01000,
+    Gyro_Range_1000 = 0b10000,
+    Gyro_Range_2000 = 0b11000
+} GyroRange_t;
 
 typedef enum
 {
-    MPU_Accel_Range_2G = 0x00,
-    MPU_Accel_Range_4G = (1 << 3),
-    MPU_Accel_Range_8G = (1 << 4),
-    MPU_Accel_Range_16G = ((1 << 4) | (1 << 3))
-} MPU_AccelRange;
+    Accel_Range_2G  = 0b00000,
+    Accel_Range_4G  = 0b01000,
+    Accel_Range_8G  = 0b10000,
+    Accel_Range_16G = 0b11000
+} AccelRange_t;
 
 void init_MPU();
-void MPU_gyroConfig(MPU_GyroRange range);
-void MPU_accelConfig(MPU_AccelRange range);
-uint8_t MPU_calibrate(void);
+void gyroConfig(GyroRange_t range);
+void accelConfig(AccelRange_t range);
+uint8_t calibrate_MPU(void);
 
 
-float MPU_accelX(void);
-float MPU_accelY(void);
-float MPU_accelZ(void);
+float accX(void);
+float accY(void);
+float accZ(void);
 
-float MPU_tempC(void);
+float tempC(void);
 
-float MPU_gyroX(void);
-float MPU_gyroY(void);
-float MPU_gyroZ(void);
+float gyroX(void);
+float gyroY(void);
+float gyroZ(void);
 
-int16_t MPU_gyroXraw(void);
-int16_t MPU_gyroYraw(void);
-int16_t MPU_gyroZraw(void);
+int16_t gyroXraw(void);
+int16_t gyroYraw(void);
+int16_t gyroZraw(void);
 
-int16_t MPU_accelXraw(void);
-int16_t MPU_accelYraw(void);
-int16_t MPU_accelZraw(void);
+int16_t accelXraw(void);
+int16_t accelYraw(void);
+int16_t accelZraw(void);
 
-float MPU_get_accelRange(void);
-float MPU_get_gyroRange(void);
+float get_accelRange(void);
+float get_gyroRange(void);
 
-void delay_mpu(uint32_t t);
+void delay_MPU(uint32_t t);
 
 void read_full_xyz(int16_t * x,int16_t * y, int16_t * z);
 

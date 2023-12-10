@@ -297,22 +297,16 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./source/mpu6050.o
  .data          0x0000000000000000        0x0 ./source/mpu6050.o
  .bss           0x0000000000000000        0x0 ./source/mpu6050.o
- .text.MPU_accelX
-                0x0000000000000000       0x60 ./source/mpu6050.o
- .text.MPU_accelY
-                0x0000000000000000       0x4a ./source/mpu6050.o
- .text.MPU_accelZ
-                0x0000000000000000       0x4a ./source/mpu6050.o
- .text.MPU_get_accelRange
+ .text.accX     0x0000000000000000       0x60 ./source/mpu6050.o
+ .text.accY     0x0000000000000000       0x4a ./source/mpu6050.o
+ .text.accZ     0x0000000000000000       0x4a ./source/mpu6050.o
+ .text.get_accelRange
                 0x0000000000000000       0x44 ./source/mpu6050.o
- .text.MPU_get_gyroRange
+ .text.get_gyroRange
                 0x0000000000000000       0x4c ./source/mpu6050.o
- .text.MPU_gyroX
-                0x0000000000000000       0x5c ./source/mpu6050.o
- .text.MPU_gyroY
-                0x0000000000000000       0x5c ./source/mpu6050.o
- .text.MPU_gyroZ
-                0x0000000000000000       0x5c ./source/mpu6050.o
+ .text.gyroX    0x0000000000000000       0x5c ./source/mpu6050.o
+ .text.gyroY    0x0000000000000000       0x5c ./source/mpu6050.o
+ .text.gyroZ    0x0000000000000000       0x5c ./source/mpu6050.o
  .debug_macro   0x0000000000000000      0xac0 ./source/mpu6050.o
  .debug_macro   0x0000000000000000       0x10 ./source/mpu6050.o
  .debug_macro   0x0000000000000000      0x12e ./source/mpu6050.o
@@ -1700,18 +1694,17 @@ END GROUP
  .text.i2c_repeated_read
                 0x0000000000000ce8       0x9c ./source/i2c.o
                 0x0000000000000ce8                i2c_repeated_read
- .text.MPU_gyroConfig
+ .text.gyroConfig
                 0x0000000000000d84       0x34 ./source/mpu6050.o
-                0x0000000000000d84                MPU_gyroConfig
- .text.MPU_accelConfig
+                0x0000000000000d84                gyroConfig
+ .text.accelConfig
                 0x0000000000000db8       0x34 ./source/mpu6050.o
-                0x0000000000000db8                MPU_accelConfig
- .text.MPU_calibrate
+                0x0000000000000db8                accelConfig
+ .text.calibrate_MPU
                 0x0000000000000dec      0x160 ./source/mpu6050.o
-                0x0000000000000dec                MPU_calibrate
- .text.MPU_tempC
-                0x0000000000000f4c       0x70 ./source/mpu6050.o
-                0x0000000000000f4c                MPU_tempC
+                0x0000000000000dec                calibrate_MPU
+ .text.tempC    0x0000000000000f4c       0x70 ./source/mpu6050.o
+                0x0000000000000f4c                tempC
  .text.init_SSD1306
                 0x0000000000000fbc      0x16c ./source/oled.o
                 0x0000000000000fbc                init_SSD1306
@@ -1928,27 +1921,27 @@ END GROUP
  .text.read_full_xyz
                 0x0000000000004520       0xd8 ./source/mpu6050.o
                 0x0000000000004520                read_full_xyz
- .text.MPU_accelXraw
+ .text.accelXraw
                 0x00000000000045f8       0x2e ./source/mpu6050.o
-                0x00000000000045f8                MPU_accelXraw
- .text.MPU_accelYraw
+                0x00000000000045f8                accelXraw
+ .text.accelYraw
                 0x0000000000004626       0x2e ./source/mpu6050.o
-                0x0000000000004626                MPU_accelYraw
- .text.MPU_accelZraw
+                0x0000000000004626                accelYraw
+ .text.accelZraw
                 0x0000000000004654       0x2e ./source/mpu6050.o
-                0x0000000000004654                MPU_accelZraw
- .text.MPU_gyroXraw
+                0x0000000000004654                accelZraw
+ .text.gyroXraw
                 0x0000000000004682       0x2e ./source/mpu6050.o
-                0x0000000000004682                MPU_gyroXraw
- .text.MPU_gyroYraw
+                0x0000000000004682                gyroXraw
+ .text.gyroYraw
                 0x00000000000046b0       0x2e ./source/mpu6050.o
-                0x00000000000046b0                MPU_gyroYraw
- .text.MPU_gyroZraw
+                0x00000000000046b0                gyroYraw
+ .text.gyroZraw
                 0x00000000000046de       0x2e ./source/mpu6050.o
-                0x00000000000046de                MPU_gyroZraw
- .text.delay_mpu
+                0x00000000000046de                gyroZraw
+ .text.delay_MPU
                 0x000000000000470c       0x2c ./source/mpu6050.o
-                0x000000000000470c                delay_mpu
+                0x000000000000470c                delay_MPU
  .text.puts_SSD1306
                 0x0000000000004738       0x4c ./source/oled.o
                 0x0000000000004738                puts_SSD1306
@@ -2063,7 +2056,7 @@ END GROUP
  .rodata.PORTD_IRQHandler.str1.4
                 0x0000000000005330       0x11 ./source/gpio.o
  *fill*         0x0000000000005341        0x3 ff
- .rodata.MPU_calibrate.str1.4
+ .rodata.calibrate_MPU.str1.4
                 0x0000000000005344       0x38 ./source/mpu6050.o
  .rodata.CLOCK_GetMcgExtClkFreq.str1.4
                 0x000000000000537c       0x1e ./drivers/fsl_clock.o
@@ -2473,65 +2466,65 @@ LOAD linker stubs
  .debug_macro   0x0000000000009093       0x10 ./board/pin_mux.o
  .debug_macro   0x00000000000090a3       0x94 ./CMSIS/system_MKL25Z4.o
 
-.debug_line     0x0000000000000000     0x6cb6
+.debug_line     0x0000000000000000     0x6cb5
  .debug_line    0x0000000000000000      0xc70 ./utilities/fsl_debug_console.o
  .debug_line    0x0000000000000c70      0x310 ./startup/startup_mkl25z4.o
- .debug_line    0x0000000000000f80      0x43f ./source/PES_Project.o
- .debug_line    0x00000000000013bf      0x1ab ./source/fonts.o
- .debug_line    0x000000000000156a      0x454 ./source/gpio.o
- .debug_line    0x00000000000019be      0x5ed ./source/i2c.o
- .debug_line    0x0000000000001fab      0x7c1 ./source/mpu6050.o
- .debug_line    0x000000000000276c       0xd5 ./source/mtb.o
- .debug_line    0x0000000000002841      0x438 ./source/oled.o
- .debug_line    0x0000000000002c79       0x59 ./source/semihost_hardfault.o
- .debug_line    0x0000000000002cd2     0x130d ./drivers/fsl_clock.o
- .debug_line    0x0000000000003fdf      0x3f8 ./drivers/fsl_common.o
- .debug_line    0x00000000000043d7      0xd61 ./drivers/fsl_lpsci.o
- .debug_line    0x0000000000005138      0xd3d ./drivers/fsl_uart.o
- .debug_line    0x0000000000005e75      0x36c ./board/board.o
- .debug_line    0x00000000000061e1      0x3e5 ./board/clock_config.o
- .debug_line    0x00000000000065c6       0x5c ./board/peripherals.o
- .debug_line    0x0000000000006622      0x359 ./board/pin_mux.o
- .debug_line    0x000000000000697b      0x33b ./CMSIS/system_MKL25Z4.o
+ .debug_line    0x0000000000000f80      0x43e ./source/PES_Project.o
+ .debug_line    0x00000000000013be      0x1ab ./source/fonts.o
+ .debug_line    0x0000000000001569      0x454 ./source/gpio.o
+ .debug_line    0x00000000000019bd      0x5ed ./source/i2c.o
+ .debug_line    0x0000000000001faa      0x7c1 ./source/mpu6050.o
+ .debug_line    0x000000000000276b       0xd5 ./source/mtb.o
+ .debug_line    0x0000000000002840      0x438 ./source/oled.o
+ .debug_line    0x0000000000002c78       0x59 ./source/semihost_hardfault.o
+ .debug_line    0x0000000000002cd1     0x130d ./drivers/fsl_clock.o
+ .debug_line    0x0000000000003fde      0x3f8 ./drivers/fsl_common.o
+ .debug_line    0x00000000000043d6      0xd61 ./drivers/fsl_lpsci.o
+ .debug_line    0x0000000000005137      0xd3d ./drivers/fsl_uart.o
+ .debug_line    0x0000000000005e74      0x36c ./board/board.o
+ .debug_line    0x00000000000061e0      0x3e5 ./board/clock_config.o
+ .debug_line    0x00000000000065c5       0x5c ./board/peripherals.o
+ .debug_line    0x0000000000006621      0x359 ./board/pin_mux.o
+ .debug_line    0x000000000000697a      0x33b ./CMSIS/system_MKL25Z4.o
 
-.debug_str      0x0000000000000000    0x36a17
+.debug_str      0x0000000000000000    0x369be
  .debug_str     0x0000000000000000    0x31535 ./utilities/fsl_debug_console.o
                                       0x317d4 (size before relaxing)
  .debug_str     0x0000000000031535      0x3ea ./startup/startup_mkl25z4.o
                                        0x31e1 (size before relaxing)
- .debug_str     0x000000000003191f      0xf4d ./source/PES_Project.o
-                                      0x314f2 (size before relaxing)
- .debug_str     0x000000000003286c       0x76 ./source/fonts.o
+ .debug_str     0x000000000003191f      0xf11 ./source/PES_Project.o
+                                      0x314b6 (size before relaxing)
+ .debug_str     0x0000000000032830       0x76 ./source/fonts.o
                                        0x456b (size before relaxing)
- .debug_str     0x00000000000328e2      0x3f7 ./source/gpio.o
+ .debug_str     0x00000000000328a6      0x3f7 ./source/gpio.o
                                       0x30e5a (size before relaxing)
- .debug_str     0x0000000000032cd9      0x2d0 ./source/i2c.o
+ .debug_str     0x0000000000032c9d      0x2d0 ./source/i2c.o
                                       0x290c7 (size before relaxing)
- .debug_str     0x0000000000032fa9      0x2ca ./source/mpu6050.o
-                                      0x30eac (size before relaxing)
- .debug_str     0x0000000000033273      0x532 ./source/mtb.o
+ .debug_str     0x0000000000032f6d      0x2ad ./source/mpu6050.o
+                                      0x30e26 (size before relaxing)
+ .debug_str     0x000000000003321a      0x532 ./source/mtb.o
                                        0x32e4 (size before relaxing)
- .debug_str     0x00000000000337a5      0x2a8 ./source/oled.o
+ .debug_str     0x000000000003374c      0x2a8 ./source/oled.o
                                       0x290d2 (size before relaxing)
- .debug_str     0x0000000000033a4d       0x1f ./source/semihost_hardfault.o
+ .debug_str     0x00000000000339f4       0x1f ./source/semihost_hardfault.o
                                        0x2dd1 (size before relaxing)
- .debug_str     0x0000000000033a6c     0x1796 ./drivers/fsl_clock.o
+ .debug_str     0x0000000000033a13     0x1796 ./drivers/fsl_clock.o
                                       0x322b1 (size before relaxing)
- .debug_str     0x0000000000035202      0x100 ./drivers/fsl_common.o
+ .debug_str     0x00000000000351a9      0x100 ./drivers/fsl_common.o
                                       0x30879 (size before relaxing)
- .debug_str     0x0000000000035302      0x915 ./drivers/fsl_lpsci.o
+ .debug_str     0x00000000000352a9      0x915 ./drivers/fsl_lpsci.o
                                       0x318a7 (size before relaxing)
- .debug_str     0x0000000000035c17      0x7e1 ./drivers/fsl_uart.o
+ .debug_str     0x0000000000035bbe      0x7e1 ./drivers/fsl_uart.o
                                       0x318ca (size before relaxing)
- .debug_str     0x00000000000363f8       0x35 ./board/board.o
+ .debug_str     0x000000000003639f       0x35 ./board/board.o
                                       0x3109b (size before relaxing)
- .debug_str     0x000000000003642d      0x3c1 ./board/clock_config.o
+ .debug_str     0x00000000000363d4      0x3c1 ./board/clock_config.o
                                       0x3127b (size before relaxing)
- .debug_str     0x00000000000367ee       0x17 ./board/peripherals.o
+ .debug_str     0x0000000000036795       0x17 ./board/peripherals.o
                                        0x2de2 (size before relaxing)
- .debug_str     0x0000000000036805      0x1ce ./board/pin_mux.o
+ .debug_str     0x00000000000367ac      0x1ce ./board/pin_mux.o
                                       0x30911 (size before relaxing)
- .debug_str     0x00000000000369d3       0x44 ./CMSIS/system_MKL25Z4.o
+ .debug_str     0x000000000003697a       0x44 ./CMSIS/system_MKL25Z4.o
                                       0x2fc13 (size before relaxing)
 
 .comment        0x0000000000000000       0x45
@@ -2900,33 +2893,8 @@ LVD_LVW_DriverIRQHandler                          ./startup/startup_mkl25z4.o
 LVD_LVW_IRQHandler                                ./startup/startup_mkl25z4.o
 MCG_DriverIRQHandler                              ./startup/startup_mkl25z4.o
 MCG_IRQHandler                                    ./startup/startup_mkl25z4.o
-MPU_accelConfig                                   ./source/mpu6050.o
-                                                  ./source/PES_Project.o
-MPU_accelX                                        ./source/mpu6050.o
-MPU_accelXraw                                     ./source/mpu6050.o
-MPU_accelY                                        ./source/mpu6050.o
-MPU_accelYraw                                     ./source/mpu6050.o
-MPU_accelZ                                        ./source/mpu6050.o
-MPU_accelZraw                                     ./source/mpu6050.o
 MPU_accel_offset                                  ./source/mpu6050.o
-MPU_calibrate                                     ./source/mpu6050.o
-                                                  ./source/PES_Project.o
-MPU_get_accelRange                                ./source/mpu6050.o
-MPU_get_gyroRange                                 ./source/mpu6050.o
-MPU_gyroConfig                                    ./source/mpu6050.o
-                                                  ./source/PES_Project.o
-MPU_gyroX                                         ./source/mpu6050.o
-MPU_gyroXraw                                      ./source/mpu6050.o
-                                                  ./source/PES_Project.o
-MPU_gyroY                                         ./source/mpu6050.o
-MPU_gyroYraw                                      ./source/mpu6050.o
-                                                  ./source/PES_Project.o
-MPU_gyroZ                                         ./source/mpu6050.o
-MPU_gyroZraw                                      ./source/mpu6050.o
-                                                  ./source/PES_Project.o
 MPU_gyro_offset                                   ./source/mpu6050.o
-MPU_tempC                                         ./source/mpu6050.o
-                                                  ./source/PES_Project.o
 NMI_Handler                                       ./startup/startup_mkl25z4.o
 PIT_DriverIRQHandler                              ./startup/startup_mkl25z4.o
 PIT_IRQHandler                                    ./startup/startup_mkl25z4.o
@@ -3214,13 +3182,23 @@ _vfprintf                                         /usr/local/mcuxpressoide-11.8.
 _vprintf                                          /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libcr_c.a(printf.o)
 _vsnprintf                                        /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libcr_c.a(printf.o)
 _vsprintf                                         /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libcr_c.a(printf.o)
+accX                                              ./source/mpu6050.o
+accY                                              ./source/mpu6050.o
+accZ                                              ./source/mpu6050.o
+accelConfig                                       ./source/mpu6050.o
+                                                  ./source/PES_Project.o
+accelXraw                                         ./source/mpu6050.o
+accelYraw                                         ./source/mpu6050.o
+accelZraw                                         ./source/mpu6050.o
 bss_init                                          ./startup/startup_mkl25z4.o
+calibrate_MPU                                     ./source/mpu6050.o
+                                                  ./source/PES_Project.o
 calloc                                            /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libcr_c.a(alloc.o)
 clear_distance                                    ./source/gpio.o
 count                                             ./source/gpio.o
 data_init                                         ./startup/startup_mkl25z4.o
 delay                                             ./source/i2c.o
-delay_mpu                                         ./source/mpu6050.o
+delay_MPU                                         ./source/mpu6050.o
 disableAck                                        ./source/i2c.o
 distance                                          ./source/gpio.o
 drawPixel_SSD1306                                 ./source/oled.o
@@ -3249,7 +3227,20 @@ g_pfnVectors                                      ./startup/startup_mkl25z4.o
 g_xtal0Freq                                       ./drivers/fsl_clock.o
                                                   ./board/clock_config.o
 g_xtal32Freq                                      ./drivers/fsl_clock.o
+get_accelRange                                    ./source/mpu6050.o
+get_gyroRange                                     ./source/mpu6050.o
 gotoXY_SSD1306                                    ./source/oled.o
+                                                  ./source/PES_Project.o
+gyroConfig                                        ./source/mpu6050.o
+                                                  ./source/PES_Project.o
+gyroX                                             ./source/mpu6050.o
+gyroXraw                                          ./source/mpu6050.o
+                                                  ./source/PES_Project.o
+gyroY                                             ./source/mpu6050.o
+gyroYraw                                          ./source/mpu6050.o
+                                                  ./source/PES_Project.o
+gyroZ                                             ./source/mpu6050.o
+gyroZraw                                          ./source/mpu6050.o
                                                   ./source/PES_Project.o
 i2c_read_setup                                    ./source/i2c.o
                                                   ./source/mpu6050.o
@@ -3314,6 +3305,8 @@ strlen                                            /usr/local/mcuxpressoide-11.8.
                                                   /usr/local/mcuxpressoide-11.8.0_1165/ide/plugins/com.nxp.mcuxpresso.tools.linux_11.8.0.202306131047/tools/bin/../lib/gcc/arm-none-eabi/12.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libcr_c.a(printf.o)
                                                   ./source/fonts.o
                                                   ./utilities/fsl_debug_console.o
+tempC                                             ./source/mpu6050.o
+                                                  ./source/PES_Project.o
 updateScreen_SSD1306                              ./source/oled.o
                                                   ./source/PES_Project.o
 waitI2C                                           ./source/i2c.o

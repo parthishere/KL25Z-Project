@@ -20,8 +20,8 @@
 #define MPU_READ(register) readRegisterI2C(MPU_ADDR_DEFAULT, (register))
 
 
-static MPU_GyroRange gyroRange;
-static MPU_AccelRange accelRange;
+static GyroRange_t gyroRange;
+static AccelRange_t accelRange;
 
 int MPU_accel_offset[3];
 int MPU_gyro_offset[3];
@@ -31,7 +31,7 @@ void init_MPU()
 {   
     initI2C();
     MPU_SEND_COMMAND(0x6B, 0x00);
-    delay_mpu(1000);
+    delay_MPU(1000);
     return;
 }
 
@@ -39,24 +39,24 @@ void init_MPU()
  * Configure the range of the gyro
  * @param range gyro range
  */
-void MPU_gyroConfig(MPU_GyroRange range) {
+void gyroConfig(GyroRange_t range) {
 	gyroRange = range;
 	MPU_SEND_COMMAND(0x1B, gyroRange);
-	delay_mpu(2);
+	delay_MPU(2);
 }
 
 /**
  * Configure the Accelerometer range
  * @param range accelerometer range
  */
-void MPU_accelConfig(MPU_AccelRange range) {
+void accelConfig(AccelRange_t range) {
 	accelRange = range;
 	MPU_SEND_COMMAND(0x1C, accelRange);
-	delay_mpu(2);
+	delay_MPU(2);
 }
 
 
-uint8_t MPU_calibrate(void) {
+uint8_t calibrate_MPU(void) {
 	int i;
 	for (int j = 0; j < 3; j++) {
 		MPU_accel_offset[j] = 0;
@@ -67,12 +67,12 @@ uint8_t MPU_calibrate(void) {
 		if (i % 50 == 0) {
 			PRINTF(".");
 		}
-		MPU_accel_offset[0] += MPU_accelXraw();
-		MPU_accel_offset[1] += MPU_accelYraw();
-		MPU_accel_offset[2] += MPU_accelZraw();
-		MPU_gyro_offset[0] += MPU_gyroXraw();
-		MPU_gyro_offset[1] += MPU_gyroYraw();
-		MPU_gyro_offset[2] += MPU_gyroZraw();
+		MPU_accel_offset[0] += accelXraw();
+		MPU_accel_offset[1] += accelYraw();
+		MPU_accel_offset[2] += accelZraw();
+		MPU_gyro_offset[0] += gyroXraw();
+		MPU_gyro_offset[1] += gyroYraw();
+		MPU_gyro_offset[2] += gyroZraw();
 	}
 	PRINTF("\r\n");
 	for (int j = 0; j < 3; j++) {
@@ -80,7 +80,7 @@ uint8_t MPU_calibrate(void) {
 		MPU_gyro_offset[j] /= NUM_CALIBRATIONS;
 	}
 	PRINTF("Offset: %d | %d | %d \r\n", MPU_gyro_offset[0], MPU_gyro_offset[1], MPU_gyro_offset[2]);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return 1;
 }
 
@@ -115,55 +115,55 @@ void read_full_xyz(int16_t * x,int16_t * y, int16_t * z)
 /**
  * Read Raw values of the Accelerometer on the X-axis
  */
-int16_t MPU_accelXraw(void) {
+int16_t accelXraw(void) {
 	int16_t accelX;
 	accelX = (int8_t)MPU_READ(MPU_ACCEL_X_REG);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return accelX;
 }
 /**
  * Read Raw values of the Accelerometer on the Y-axis
  */
-int16_t MPU_accelYraw(void) {
+int16_t accelYraw(void) {
 	int16_t accelY;
 	accelY = (int8_t)MPU_READ(MPU_ACCEL_Y_REG);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return accelY;
 }
 /**
  * Read Raw values of the Accelerometer on the Z-axis
  */
-int16_t MPU_accelZraw(void) {
+int16_t accelZraw(void) {
 	int16_t accelZ;
 	accelZ = (int8_t)MPU_READ(MPU_ACCEL_Z_REG);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return accelZ;
 }
 /**
  * Read Raw values of the Gyroscope on the X-axis
  */
-int16_t MPU_gyroXraw(void) {
+int16_t gyroXraw(void) {
 	int16_t gyroX;
 	gyroX = (int8_t)MPU_READ(MPU_GYRO_X_REG);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return gyroX;
 }
 /**
  * Read Raw values of the Gyroscope on the Y-axis
  */
-int16_t MPU_gyroYraw(void) {
+int16_t gyroYraw(void) {
 	int16_t gyroY;
 	gyroY = (int8_t)MPU_READ(MPU_GYRO_Y_REG);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return gyroY;
 }
 /**
  * Read Raw values of the Gyroscope on the Z-axis
  */
-int16_t MPU_gyroZraw(void) {
+int16_t gyroZraw(void) {
 	int16_t gyroZ;
 	gyroZ = (int8_t)MPU_READ(MPU_GYRO_Z_REG);
-	delay_mpu(2000);
+	delay_MPU(2000);
 	return gyroZ;
 }
 
@@ -171,46 +171,46 @@ int16_t MPU_gyroZraw(void) {
 /**
  * Read the calculated Accelerometer value on X-axis
  */
-float MPU_accelX(void) {
+float accX(void) {
 	int16_t accelX;
 	accelX = (int8_t)MPU_READ(MPU_ACCEL_X_REG);
 	accelX -= MPU_accel_offset[0];
 	float accelX_calc;
-	accelX_calc = accelX / (MPU_get_accelRange());
-	delay_mpu(1000);
+	accelX_calc = accelX / (get_accelRange());
+	delay_MPU(1000);
 	return accelX_calc;
 }
 /**
  * Read the calculated Accelerometer value on Y-axis
  */
-float MPU_accelY(void) {
+float accY(void) {
 	int16_t accelY;
 	accelY = (int8_t)MPU_READ(MPU_ACCEL_Y_REG);
 	float accelY_calc;
-	accelY_calc = accelY / (MPU_get_accelRange());
-	delay_mpu(1000);
+	accelY_calc = accelY / (get_accelRange());
+	delay_MPU(1000);
 	return accelY_calc;
 }
 /**
  * Read the calculated Accelerometer value on Z-axis
  */
-float MPU_accelZ(void) {
+float accZ(void) {
 	int16_t accelZ;
 	accelZ = (int8_t)MPU_READ(MPU_ACCEL_Z_REG);
 	float accelZ_calc;
-	accelZ_calc = accelZ / (MPU_get_accelRange());
-	delay_mpu(1000);
+	accelZ_calc = accelZ / (get_accelRange());
+	delay_MPU(1000);
 	return accelZ_calc;
 }
 /**
  * Read the Temperature sensor in degrees Celcius
  */
-float MPU_tempC(void) {
+float tempC(void) {
 	int16_t temp;
 	temp = (int8_t)MPU_READ(MPU_TEMP_REG);
 	float tempC;
 	tempC = (temp / 340) + 36.53;
-	delay_mpu(1000);
+	delay_MPU(1000);
 	return temp;
 }
 
@@ -219,15 +219,15 @@ float MPU_tempC(void) {
 /**
  * Get the Accelerometer range value
  */
-float MPU_get_accelRange(void) {
+float get_accelRange(void) {
 	switch (accelRange) {
-	case MPU_Accel_Range_2G:
+	case Accel_Range_2G:
 		return 16384.0f;
-	case MPU_Accel_Range_4G:
+	case Accel_Range_4G:
 		return 8192.0f;
-	case MPU_Accel_Range_8G:
+	case Accel_Range_8G:
 		return 4096.0f;
-	case MPU_Accel_Range_16G:
+	case Accel_Range_16G:
 		return 2048.0f;
 	default:
 		return 2048.0f;
@@ -236,15 +236,15 @@ float MPU_get_accelRange(void) {
 /**
  * Get the Gyroscope range value
  */
-float MPU_get_gyroRange(void) {
+float get_gyroRange(void) {
 	switch (gyroRange) {
-	case MPU_Gyro_Range_250:
+	case Gyro_Range_250:
 		return 131;
-	case MPU_Gyro_Range_500:
+	case Gyro_Range_500:
 		return 65.5;
-	case MPU_Gyro_Range_1000:
+	case Gyro_Range_1000:
 		return 32.8;
-	case MPU_Gyro_Range_2000:
+	case Gyro_Range_2000:
 		return 16.4;
 	default:
 		return 16.4;
@@ -254,41 +254,41 @@ float MPU_get_gyroRange(void) {
 /**
  * Read calculated Gyroscope values on X-axis
  */
-float MPU_gyroX(void) {
+float gyroX(void) {
 	int16_t gyroX;
 	gyroX = (int8_t)MPU_READ(MPU_GYRO_X_REG);
 	gyroX -= MPU_gyro_offset[0];
 	float gyroX_calc;
-	gyroX_calc = gyroX / (MPU_get_gyroRange());
-	delay_mpu(2);
+	gyroX_calc = gyroX / (get_gyroRange());
+	delay_MPU(2);
 	return gyroX_calc;
 }
 /**
  * Read calculated Gyroscope values on Y-axis
  */
-float MPU_gyroY(void) {
+float gyroY(void) {
 	int16_t gyroY;
 	gyroY = (int8_t)MPU_READ(MPU_GYRO_Y_REG);
 	gyroY -= MPU_gyro_offset[1];
 	float gyroY_calc;
-	gyroY_calc = gyroY / (MPU_get_gyroRange());
-	delay_mpu(2);
+	gyroY_calc = gyroY / (get_gyroRange());
+	delay_MPU(2);
 	return gyroY_calc;
 }
 /**
  * Read calculated Gyroscope values on Z-axis
  */
-float MPU_gyroZ(void) {
+float gyroZ(void) {
 	int16_t gyroZ;
 	gyroZ = MPU_READ(MPU_GYRO_Z_REG);
 	gyroZ -= MPU_gyro_offset[2];
 	float gyroZ_calc;
-	gyroZ_calc = gyroZ / (MPU_get_gyroRange());
-	delay_mpu(2);
+	gyroZ_calc = gyroZ / (get_gyroRange());
+	delay_MPU(2);
 	return gyroZ_calc;
 }
 
-void delay_mpu(uint32_t t)
+void delay_MPU(uint32_t t)
 {
 	uint32_t cnt = 0;
 	for(cnt=0; cnt<t; cnt++)

@@ -41,10 +41,10 @@ int main(void) {
     // updateScreen_SSD1306();
 
     init_MPU();
-    MPU_gyroConfig(MPU_Gyro_Range_250);
-    MPU_accelConfig(MPU_Accel_Range_8G);
+    gyroConfig(Gyro_Range_250);
+    accelConfig(Accel_Range_8G);
 
-    MPU_calibrate();
+    calibrate_MPU();
     
     init_GPIO_External_IRQ();
 
@@ -53,7 +53,7 @@ int main(void) {
 
     while(1) {
         read_full_xyz(&x, &y, &z);
-        PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d Tempreture %04d  \n\r", x, y, z, MPU_gyroXraw(), MPU_gyroYraw(), MPU_gyroZraw(), MPU_tempC());
+        PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d Tempreture %04d  \n\r", x, y, z, gyroXraw(), gyroYraw(), gyroZraw(), tempC());
         // IMPLEMENT DELAY
         snprintf(buffer, sizeof(buffer), "%04d, %04d, %04d", x, y, z);
         gotoXY_SSD1306 (0,5);
