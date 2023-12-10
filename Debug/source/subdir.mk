@@ -7,6 +7,7 @@ C_SRCS += \
 ../source/PES_Project.c \
 ../source/distance.c \
 ../source/fonts.c \
+../source/gpio.c \
 ../source/i2c.c \
 ../source/mpu6050.c \
 ../source/mtb.c \
@@ -18,6 +19,7 @@ C_DEPS += \
 ./source/PES_Project.d \
 ./source/distance.d \
 ./source/fonts.d \
+./source/gpio.d \
 ./source/i2c.d \
 ./source/mpu6050.d \
 ./source/mtb.d \
@@ -29,6 +31,7 @@ OBJS += \
 ./source/PES_Project.o \
 ./source/distance.o \
 ./source/fonts.o \
+./source/gpio.o \
 ./source/i2c.o \
 ./source/mpu6050.o \
 ./source/mtb.o \
@@ -49,7 +52,7 @@ source/%.o: ../source/%.c source/subdir.mk
 clean: clean-source
 
 clean-source:
-	-$(RM) ./source/PES_Project.d ./source/PES_Project.o ./source/distance.d ./source/distance.o ./source/fonts.d ./source/fonts.o ./source/i2c.d ./source/i2c.o ./source/mpu6050.d ./source/mpu6050.o ./source/mtb.d ./source/mtb.o ./source/oled.d ./source/oled.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/timer.d ./source/timer.o
+	-$(RM) ./source/PES_Project.d ./source/PES_Project.o ./source/distance.d ./source/distance.o ./source/fonts.d ./source/fonts.o ./source/gpio.d ./source/gpio.o ./source/i2c.d ./source/i2c.o ./source/mpu6050.d ./source/mpu6050.o ./source/mtb.d ./source/mtb.o ./source/oled.d ./source/oled.o ./source/semihost_hardfault.d ./source/semihost_hardfault.o ./source/timer.d ./source/timer.o
 
 .PHONY: clean-source
 

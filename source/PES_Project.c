@@ -35,8 +35,9 @@ int main(void) {
 
     init_SSD1306();
 
-//    gotoXY_SSD1306 (0,0);
-//	puts_SSD1306 ("HELLO", &Font_11x18, 1);
+    gotoXY_SSD1306 (0,0);
+	puts_SSD1306 ("HELLO", &Font_11x18, SSD1306_COLOR_BLACK);
+    updateScreen_SSD1306();
 
     init_MPU();
     MPU_gyroConfig(MPU_Gyro_Range_250);

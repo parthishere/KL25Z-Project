@@ -1,0 +1,5 @@
+/home/parth/Work/anotherworkspace/PES_Project/CMSIS/core_cm0plus.h:745:22:NVIC_EnableIRQ	16	static
+/home/parth/Work/anotherworkspace/PES_Project/CMSIS/core_cm0plus.h:791:22:NVIC_ClearPendingIRQ	16	static
+/home/parth/Work/anotherworkspace/PES_Project/CMSIS/core_cm0plus.h:804:22:NVIC_SetPriority	24	static
+../source/gpio.c:12:6:init_GPIO_External_IRQ	8	static
+../source/gpio.c:32:6:PORTD_IRQHandler	8	static
