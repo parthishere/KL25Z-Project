@@ -85,7 +85,7 @@ uint8_t init_SSD1306(void) {
 	SSD1306_SEND_COMMAND(SSD1306_DEACTIVATE_SCROLL);
 
 	/* Clear screen */
-	fill_SSD1306(SSD1306_COLOR_WHITE);
+	fill_SSD1306(SSD1306_COLOR_BLACK);
 	
 	/* Update screen */
 	updateScreen_SSD1306();

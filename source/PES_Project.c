@@ -19,6 +19,7 @@
 #include "oled.h"
 #include "fonts.h"
 #include "mpu6050.h"
+#include "gpio.h"
 
 
 int main(void) {
@@ -35,19 +36,29 @@ int main(void) {
 
     init_SSD1306();
 
-    gotoXY_SSD1306 (0,0);
-	puts_SSD1306 ("HELLO", &Font_11x18, SSD1306_COLOR_BLACK);
-    updateScreen_SSD1306();
+    // gotoXY_SSD1306 (0,0);
+	// puts_SSD1306 ("HELLO", &Font_11x18, SSD1306_COLOR_BLACK);
+    // updateScreen_SSD1306();
 
     init_MPU();
     MPU_gyroConfig(MPU_Gyro_Range_250);
     MPU_accelConfig(MPU_Accel_Range_8G);
 
     MPU_calibrate();
+    
+    init_GPIO_External_IRQ();
+
     int16_t x, y, z;
+    char buffer[50];
+
     while(1) {
         read_full_xyz(&x, &y, &z);
         PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d Tempreture %04d  \n\r", x, y, z, MPU_gyroXraw(), MPU_gyroYraw(), MPU_gyroZraw(), MPU_tempC());
+        // IMPLEMENT DELAY
+        snprintf(buffer, sizeof(buffer), "%04d, %04d, %04d", x, y, z);
+        gotoXY_SSD1306 (0,5);
+        puts_SSD1306 (buffer, &Font_7x10, SSD1306_COLOR_WHITE);
+        updateScreen_SSD1306();
     }
     return 0 ;
 }

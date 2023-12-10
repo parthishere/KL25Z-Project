@@ -7,6 +7,11 @@
 
 #define THRITYTWO_BIT 0xffffffff
 
+volatile uint32_t count = 0;
+volatile uint32_t distance = 0;
+
+#define R 10 //cm
+#define PERIMETER 2*3.14*R // cm
 
 
 void init_GPIO_External_IRQ(){
@@ -36,8 +41,21 @@ void PORTD_IRQHandler(){
 	// If the switch is pressed, transition to the emergency state.
 	if ((PORTD->ISFR & MASK(HALL_SENSOR_POS))) {
 		PRINTF("Got rising edge!");
+		count++; // one revolution complete
+		distance += PERIMETER;
 	}
 
 	// Clear the PORTD interrupt status flag.
 	PORTD->ISFR = THRITYTWO_BIT;
 }
+
+
+uint32_t return_distance(){
+	return (distance);
+}
+
+uint32_t clear_distance(){
+	count = 0;
+	distance = 0;
+}
+
