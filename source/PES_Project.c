@@ -45,12 +45,14 @@ int main(void) {
     init_GPIO_External_IRQ();
 
     int16_t x, y, z;
+    int16_t gx, gy, gz;
     char buffer[50];
     int distance = 0;
 
     while(1) {
         read_full_xyz_calibrated(&x, &y, &z);
-        PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d Tempreture %04d  \n\r", x, y, z, gyroXraw(), gyroYraw(), gyroZraw(), tempC());
+        read_full_gxyz_calibrated(&gx, &gy, &gz);
+        PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d | Tempreture %04d  \n\r", x, y, z, gx, gy, gz, tempC());
         // IMPLEMENT DELAY
         snprintf(buffer, sizeof(buffer), "%04d, %04d, %04d", x, y, z);
         gotoXY_SSD1306 (0,5);

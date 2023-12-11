@@ -59,6 +59,7 @@ void accelConfig(AccelRange_t range) {
 uint8_t calibrate_MPU(void) {
 	int i;
 	int16_t temp_x, temp_y, temp_z;
+	int16_t temp_gx, temp_gy, temp_gz;
 
 	for (int j = 0; j < 3; j++) {
 		MPU_accel_offset[j] = 0;
@@ -70,13 +71,14 @@ uint8_t calibrate_MPU(void) {
 			PRINTF(".");
 		}
 		read_full_xyz(&temp_x, &temp_y, &temp_z);
+		read_full_gxyz(&temp_gx, &temp_gy, &temp_gz);
 
 		MPU_accel_offset[0] += temp_x;
 		MPU_accel_offset[1] += temp_y;
 		MPU_accel_offset[2] += temp_z;
-		MPU_gyro_offset[0] += gyroXraw();
-		MPU_gyro_offset[1] += gyroYraw();
-		MPU_gyro_offset[2] += gyroZraw();
+		MPU_gyro_offset[0] += temp_gx;
+		MPU_gyro_offset[1] += temp_gy;
+		MPU_gyro_offset[2] += temp_gz;
 	}
 	PRINTF("\r\n");
 	for (int j = 0; j < 3; j++) {
@@ -145,6 +147,64 @@ void read_full_xyz_calibrated(int16_t * x,int16_t * y, int16_t * z)
 	*x -= (MPU_accel_offset[0]);
 	*y = *y - (MPU_accel_offset[1]);
 	*z = *z - (MPU_accel_offset[2]);
+}
+
+void read_full_gxyz(int16_t * x,int16_t * y, int16_t * z)
+{
+	int i;
+		
+	int16_t temp[3];
+	int8_t data[6];
+	
+	startI2C();
+	i2c_read_setup(MPU_ADDR_DEFAULT , MPU_GYRO_X_REG); // Start with register 0x3B (ACCEL_XOUT_H)
+	
+	// Read five bytes in repeated mode
+	for( i=0; i<5; i++)	{
+		data[i] = (int8_t)i2c_repeated_read(0);
+	}
+	// Read last byte ending repeated mode
+	data[i] = (int8_t)i2c_repeated_read(1);
+	
+	for ( i=0; i<3; i++ ) {
+		temp[i] = (int16_t) ((data[2*i]<<8) | data[2*i+1]);
+	}
+
+	// Align for 14 bits
+	*x = temp[0]/4;
+	*y = temp[1]/4;
+	*z = temp[2]/4;
+}
+
+void read_full_gxyz_calibrated(int16_t * x,int16_t * y, int16_t * z)
+{
+	int i;
+		
+	int16_t temp[3];
+	int8_t data[6];
+	
+	startI2C();
+	i2c_read_setup(MPU_ADDR_DEFAULT , MPU_GYRO_X_REG); // Start with register 0x3B (ACCEL_XOUT_H)
+	
+	// Read five bytes in repeated mode
+	for( i=0; i<5; i++)	{
+		data[i] = (int8_t)i2c_repeated_read(0);
+	}
+	// Read last byte ending repeated mode
+	data[i] = (int8_t)i2c_repeated_read(1);
+	
+	for ( i=0; i<3; i++ ) {
+		temp[i] = (int16_t) ((data[2*i]<<8) | data[2*i+1]);
+	}
+
+	// Align for 14 bits
+	*x = temp[0]/4;
+	*y = temp[1]/4;
+	*z = temp[2]/4;
+
+	*x -= (MPU_gyro_offset[0]);
+	*y = *y - (MPU_gyro_offset[1]);
+	*z = *z - (MPU_gyro_offset[2]);
 }
 
 
@@ -247,7 +307,7 @@ float tempC(void) {
 	float tempC;
 	tempC = (temp / 340) + 36.53;
 	delay_MPU(1000);
-	return temp;
+	return tempC;
 }
 
 

@@ -22,7 +22,7 @@ void init_GPIO_External_IRQ(){
 	PORTD->PCR[HALL_SENSOR_POS] |= PORT_PCR_MUX(1) | PORT_PCR_IRQC(0B1001) | PORT_PCR_PS_MASK | PORT_PCR_PE_MASK;
 
 	PTD->PDDR &= ~MASK(HALL_SENSOR_POS);
-
+	
 	// Set the priority of the PORTD interrupt.
 	NVIC_SetPriority(PORTD_IRQn, 4);
 

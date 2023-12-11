@@ -52,4 +52,7 @@ void delay_MPU(uint32_t t);
 void read_full_xyz(int16_t * x,int16_t * y, int16_t * z);
 void read_full_xyz_calibrated(int16_t * x,int16_t * y, int16_t * z);
 
+void read_full_gxyz(int16_t * x,int16_t * y, int16_t * z);
+void read_full_gxyz_calibrated(int16_t * x,int16_t * y, int16_t * z);
+
 #endif // !__MPU6050_H__
