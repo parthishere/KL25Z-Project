@@ -58,6 +58,8 @@ void accelConfig(AccelRange_t range) {
 
 uint8_t calibrate_MPU(void) {
 	int i;
+	int16_t temp_x, temp_y, temp_z;
+
 	for (int j = 0; j < 3; j++) {
 		MPU_accel_offset[j] = 0;
 		MPU_gyro_offset[j] = 0;
@@ -67,9 +69,11 @@ uint8_t calibrate_MPU(void) {
 		if (i % 50 == 0) {
 			PRINTF(".");
 		}
-		MPU_accel_offset[0] += accelXraw();
-		MPU_accel_offset[1] += accelYraw();
-		MPU_accel_offset[2] += accelZraw();
+		read_full_xyz(&temp_x, &temp_y, &temp_z);
+
+		MPU_accel_offset[0] += temp_x;
+		MPU_accel_offset[1] += temp_y;
+		MPU_accel_offset[2] += temp_z;
 		MPU_gyro_offset[0] += gyroXraw();
 		MPU_gyro_offset[1] += gyroYraw();
 		MPU_gyro_offset[2] += gyroZraw();
@@ -109,6 +113,37 @@ void read_full_xyz(int16_t * x,int16_t * y, int16_t * z)
 	*x = temp[0]/4;
 	*y = temp[1]/4;
 	*z = temp[2]/4;
+}
+
+void read_full_xyz_calibrated(int16_t * x,int16_t * y, int16_t * z)
+{
+	int i;
+		
+	int16_t temp[3];
+	int8_t data[6];
+	
+	startI2C();
+	i2c_read_setup(MPU_ADDR_DEFAULT , 0x3B); // Start with register 0x3B (ACCEL_XOUT_H)
+	
+	// Read five bytes in repeated mode
+	for( i=0; i<5; i++)	{
+		data[i] = (int8_t)i2c_repeated_read(0);
+	}
+	// Read last byte ending repeated mode
+	data[i] = (int8_t)i2c_repeated_read(1);
+	
+	for ( i=0; i<3; i++ ) {
+		temp[i] = (int16_t) ((data[2*i]<<8) | data[2*i+1]);
+	}
+
+	// Align for 14 bits
+	*x = temp[0]/4;
+	*y = temp[1]/4;
+	*z = temp[2]/4;
+
+	*x -= MPU_accel_offset[0];
+	*y -= MPU_accel_offset[1];
+	*z -= MPU_accel_offset[2];
 }
 
 

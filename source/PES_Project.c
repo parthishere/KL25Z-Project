@@ -36,10 +36,6 @@ int main(void) {
 
     init_SSD1306();
 
-    // gotoXY_SSD1306 (0,0);
-	// puts_SSD1306 ("HELLO", &Font_11x18, SSD1306_COLOR_BLACK);
-    // updateScreen_SSD1306();
-
     init_MPU();
     gyroConfig(Gyro_Range_250);
     accelConfig(Accel_Range_8G);
@@ -52,7 +48,7 @@ int main(void) {
     char buffer[50];
 
     while(1) {
-        read_full_xyz(&x, &y, &z);
+        read_full_xyz_calibrated(&x, &y, &z);
         PRINTF("X: %04d Y : %04d Z: %04d  | Gyro X %04d Y %04d Z %0d Tempreture %04d  \n\r", x, y, z, gyroXraw(), gyroYraw(), gyroZraw(), tempC());
         // IMPLEMENT DELAY
         snprintf(buffer, sizeof(buffer), "%04d, %04d, %04d", x, y, z);
