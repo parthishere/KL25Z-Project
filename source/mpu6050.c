@@ -14,7 +14,7 @@
 #define MPU_ACCEL_CONFIG_REG 0x1C
 #define MPU_TEMP_CONFIG_REG
 
-#define NUM_CALIBRATIONS 2000
+#define NUM_CALIBRATIONS 1000
 
 #define MPU_SEND_COMMAND(register, command) writeRegisterI2C(MPU_ADDR_DEFAULT, (register), (command))
 #define MPU_READ(register) readRegisterI2C(MPU_ADDR_DEFAULT, (register))
@@ -23,8 +23,8 @@
 static GyroRange_t gyroRange;
 static AccelRange_t accelRange;
 
-int MPU_accel_offset[3];
-int MPU_gyro_offset[3];
+static int MPU_accel_offset[3];
+static int MPU_gyro_offset[3];
 
 
 void init_MPU()
@@ -84,6 +84,7 @@ uint8_t calibrate_MPU(void) {
 		MPU_gyro_offset[j] /= NUM_CALIBRATIONS;
 	}
 	PRINTF("Offset: %d | %d | %d \r\n", MPU_gyro_offset[0], MPU_gyro_offset[1], MPU_gyro_offset[2]);
+	PRINTF("Accel Offset: %d | %d | %d \r\n", MPU_accel_offset[0], MPU_accel_offset[1], MPU_accel_offset[2]);
 	delay_MPU(2000);
 	return 1;
 }
@@ -142,8 +143,8 @@ void read_full_xyz_calibrated(int16_t * x,int16_t * y, int16_t * z)
 	*z = temp[2]/4;
 
 	*x -= (MPU_accel_offset[0]);
-	*y -= (MPU_accel_offset[1]);
-	*z -= (MPU_accel_offset[2]);
+	*y = *y - (MPU_accel_offset[1]);
+	*z = *z - (MPU_accel_offset[2]);
 }
 
 
