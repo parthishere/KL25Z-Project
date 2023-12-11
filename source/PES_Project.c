@@ -46,6 +46,7 @@ int main(void) {
 
     int16_t x, y, z;
     char buffer[50];
+    int distance = 0;
 
     while(1) {
         read_full_xyz_calibrated(&x, &y, &z);
@@ -53,6 +54,11 @@ int main(void) {
         // IMPLEMENT DELAY
         snprintf(buffer, sizeof(buffer), "%04d, %04d, %04d", x, y, z);
         gotoXY_SSD1306 (0,5);
+        puts_SSD1306 (buffer, &Font_7x10, SSD1306_COLOR_WHITE);
+
+        distance = return_distance();
+        snprintf(buffer, sizeof(buffer), "%d cm", distance);
+        gotoXY_SSD1306 (0,20);
         puts_SSD1306 (buffer, &Font_7x10, SSD1306_COLOR_WHITE);
         updateScreen_SSD1306();
     }

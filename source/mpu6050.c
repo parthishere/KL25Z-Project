@@ -14,7 +14,7 @@
 #define MPU_ACCEL_CONFIG_REG 0x1C
 #define MPU_TEMP_CONFIG_REG
 
-#define NUM_CALIBRATIONS 1000
+#define NUM_CALIBRATIONS 2000
 
 #define MPU_SEND_COMMAND(register, command) writeRegisterI2C(MPU_ADDR_DEFAULT, (register), (command))
 #define MPU_READ(register) readRegisterI2C(MPU_ADDR_DEFAULT, (register))
@@ -141,9 +141,9 @@ void read_full_xyz_calibrated(int16_t * x,int16_t * y, int16_t * z)
 	*y = temp[1]/4;
 	*z = temp[2]/4;
 
-	*x -= MPU_accel_offset[0];
-	*y -= MPU_accel_offset[1];
-	*z -= MPU_accel_offset[2];
+	*x -= (MPU_accel_offset[0]);
+	*y -= (MPU_accel_offset[1]);
+	*z -= (MPU_accel_offset[2]);
 }
 
 
